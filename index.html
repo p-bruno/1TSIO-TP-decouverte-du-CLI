@@ -1,0 +1,347 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>TP : Découverte du CLI</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="1TSIO_codelab_decouverte_du_CLI"
+                  title="TP : Découverte du CLI"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Rendu écrit" duration="5">
+        <p>Dans ce TP vous allez être amené à répondre à des questions. </p>
+<ul>
+<li>Vous devrez écrire ces réponses sur une feuille double A4 et écrire le titre du TP (situé en haut à gauche de ce site). </li>
+<li>Vous devrez également indiquer votre nom, prénom, classe. </li>
+<li>Vous utiliserez un stylo de couleur noir ou bleu. </li>
+<li>Vous préciserez le numéro de la question lors de la rédaction de vos réponses. (Vous n&#39;êtes pas obligé de recopier les questions)</li>
+</ul>
+<p class="image-container"><img style="width: 718.11px" src="img\\9e98e2e9eb935ddf.jpeg"></p>
+<aside class="warning"><p>Si les conditions spécifiées précédemment ne sont pas remplies au moment de l&#39;examen, des points de pénalité peuvent s&#39;appliquer.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Connection au port console du switch" duration="10">
+        <h2 is-upgraded>Matériels nécessaire</h2>
+<p class="image-container"><img style="width: 561.00px" src="img\\c3d0207d95433118.png"></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>1</strong></p>
+</td><td colspan="1" rowspan="1"><p>Commutateur Catalyst 2960-S</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>2</strong></p>
+</td><td colspan="1" rowspan="1"><p>Cordon d&#39;alimentation CA</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>13</strong></p>
+</td><td colspan="1" rowspan="1"><p>Câble de console ou câble USB</p>
+</td></tr>
+<tr><td colspan="2" rowspan="1"><p><strong>Un ordinateur avec un programme d&#39;émulation de terminal comme par exemple PuTTy</strong></p>
+</td></tr>
+</table>
+<h2 is-upgraded>Réinitialisation du commutateur</h2>
+<p>Assurez-vous qu&#39;aucun élément n&#39;est connecté au commutateur.</p>
+<p class="image-container"><img style="width: 211.96px" src="img\\7395e75a26430a22.png"></p>
+<p>Alimentez le commutateur en connectant le cordon d&#39;alimentation CA à l&#39;alimentation du commutateur et à une prise de courant CA mise à la masse.</p>
+<p class="image-container"><img style="width: 225.00px" src="img\\8c219729fcb46693.png"></p>
+<p>Environ 30 secondes après sa mise sous tension, le commutateur lance l&#39;autotest à la mise sous tension (POST),</p>
+<p>Lors de cet autotest à la mise sous tension (POST), le voyant LED SYSTEM clignote en vert et les voyants LED RPS, STATUS, DUPLEX et SPEED restent verts. </p>
+<p>Une fois l&#39;autotest à la mise sous tension (POST) effectué, le voyant LED SYSTEM reste vert et les autres voyants LED s&#39;éteignent, à l&#39;exception du voyant LED STAT suivant les situations.</p>
+<p>Pour réinitialiser le commutateur, appuyez sur le bouton Mode et maintenez-le enfoncé. Après environ 3 secondes, les LED du commutateur commencent à clignoter. Continuez à maintenir le bouton Mode enfoncé. Les DEL cessent de clignoter après 7 secondes supplémentaires, puis le commutateur redémarre. </p>
+<p class="image-container"><img style="width: 225.00px" src="img\\f903d63a37f70415.png"></p>
+<h2 is-upgraded>Accès à la CLI via PuTTY avec une connexion console</h2>
+<p>Connectez le câble d&#39;adaptateur RJ-45 à DB-9 fourni au port série à 9 broches de raccordement sur le PC. Connectez l&#39;autre extrémité du câble au port de console du commutateur.</p>
+<p class="image-container"><img style="width: 193.00px" src="img\\8decf9a4278e7354.png"></p>
+<h2 is-upgraded>Pour les utilisateurs sur une machine Windows</h2>
+<iframe class="youtube-video" src="https://www.youtube.com/embed/kybFcWoEuco?rel=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h2 is-upgraded>Pour les utilisateurs sur une machine Ubuntu</h2>
+<p>Dans PuTTy, dans le champ &#34;Serial line&#34;, mettre la valeur <code>ttys1</code> au lieu de COM</p>
+<p class="image-container"><img style="width: 693.00px" src="img\\5e42e049ecdc5da2.png"></p>
+<h2 is-upgraded>Affichage de la CLI</h2>
+<p>Après toutes les manipulations précédentes, une fenêtre devrait s&#39;ouvrir contenant la CLI.</p>
+<p>Si le message suivant apparaît :</p>
+<pre>Would you like to enter the initial configuration dialog? [yes/no]:</pre>
+<p>Taper <code>no </code></p>
+<p class="image-container"><img style="width: 718.11px" src="img\\c2ca508dac39a00b.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="User EXEC Mode" duration="5">
+        <p>Une fois connecté à un périphérique, vous pouvez désormais le configurer.</p>
+<p>Sur Cisco IOS la CLI est organisée selon une structure hiérarchique de mode.</p>
+<aside class="special"><p><strong>❤ Quelles sont les 4 modes principaux dans Cisco IOS ? </strong></p>
+<p>En partant de la configuration la plus simple à la plus spécialisée, les modes principaux sont les suivants :</p>
+<ol type="1" start="1">
+<li>User EXEC Mode (Mode d&#39;exécution utilisateur)</li>
+<li>Privileged EXEC Mode (Mode d&#39;exécution privilégié)</li>
+<li>Global configuration Mode (Mode de configuration globale)</li>
+<li>Autres modes de configuration spécifiques tels que le mode de configuration d&#39;interface</li>
+</ol>
+</aside>
+<p>Structure hiérarchique des modes IOS</p>
+<p class="image-container"><img style="width: 500.00px" src="img\\abc7e39b3677e286.png"></p>
+<aside class="special"><p><strong>❤ Comment savoir quel mode est utilisé en regardant uniquement l&#39;invite de la CLI ?</strong></p>
+<p>Chaque mode se reconnaît facilement dans la CLI : l&#39;invite se termine par un symbole particulier. </p>
+</aside>
+<p>Par exemple si l&#39;invite se termine par le symbole # alors cela signifie que l&#39;on est en mode Global configuration : </p>
+<pre>S1#</pre>
+<ol type="1" start="1">
+<li>Regarder votre CLI, dans quel mode êtes-vous actuellement ? Justifier votre réponse.</li>
+</ol>
+<p>Dans la commande précédente, le nom de l&#39;hôte était <code>S1</code>.</p>
+<p class="image-container"><img style="width: 495.00px" src="img\\54899f65b685e635.png"></p>
+<ol type="1" start="2">
+<li>Observer votre CLI, quel est le nom du périphérique ?</li>
+</ol>
+<ul>
+<li>Les utilisateurs peuvent lire certaines informations mais ne peuvent pas configurer l&#39;appareil.</li>
+<li>C&#39;est pourquoi ce mode est souvent appelé &#34;user mode&#34; = mode en lecture seul.</li>
+</ul>
+<aside class="special"><p><strong>❤ Peut-on faire beaucoup de choses dans le mode utilisateur ?</strong></p>
+<p>Non, le mode utilisateur est très limité.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Privileged EXEC Mode" duration="5">
+        <p>Entrer la commande : </p>
+<pre>&gt;enable</pre>
+<p>Vous êtes maintenant dans le mode privilégié.</p>
+<ol type="1" start="3">
+<li>❤ Quel est le symbole qui se trouve au bout de la ligne de commande ?</li>
+</ol>
+<ul>
+<li>Le mode privilégié vous donne le droit de voir la configuration de l&#39;appareil, de le restart etc...</li>
+<li>Avec ce mode vous ne pouvez pas changer la configuration. Cependant vous pouvez tout de même faire quelques manips comme par exemple changer l&#39;heure ou sauvegarder la config.</li>
+</ul>
+<h2 is-upgraded>Comparaison entre les modes User EXEC et Privileged EXEC</h2>
+<p>Dans la CLI taper la commande suivante : </p>
+<pre>#?</pre>
+<p>Pour afficher d&#39;autres commandes, appuyer sur la touche espace : </p>
+<p class="image-container"><img style="width: 669.00px" src="img\\3c1674d7842ee67.png"></p>
+<ol type="1" start="4">
+<li>D&#39;après vous, à quoi sert cette commande ?</li>
+</ol>
+<p>Pour annuler la commande faire <code>CTRL + C</code></p>
+<p>Pour revenir au mode précédent taper : </p>
+<pre>#exit</pre>
+<ol type="1" start="5">
+<li>D&#39;après vous quel mode possède le plus de commandes ? Justifier votre réponse</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Les raccourcis Cisco dans la CLI" duration="10">
+        <p>Une fonctionnalité utile de la CLI est la touche <code>TAB</code>. Placez vous dans le mode utilisateur, puis effectuer la manipulation présentée ci-dessous.</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\4a820b3240277778.png"></p>
+<aside class="special"><p><strong>❤ A quoi sert la touche </strong><strong><code>TAB</code></strong><strong> après avoir commencé à taper une commande ?</strong></p>
+<p>La touche <code>TAB</code> sert à compléter un nom de commande partiellement entré.</p>
+</aside>
+<p>Placez vous dans le mode utilisateur, puis effectuez la commande suivante.</p>
+<pre>&gt;en</pre>
+<ol type="1" start="6">
+<li>Appuyer sur <code>ENTER</code>, dans quel mode êtes-vous désormais ?</li>
+</ol>
+<p>Maintenant retourner en user mode et taper la commande : </p>
+<pre>&gt;e</pre>
+<ol type="1" start="7">
+<li>Recopier le message d&#39;erreur retourné. Quelle est la définition de mot ambigu ? Que signifie cette erreur en français ? </li>
+</ol>
+<aside class="special"><p><strong>❤ Que fournit l&#39;aide contextuelle (?)</strong></p>
+<p>L&#39;aide contextuelle (?) fournit la liste des commandes disponibles dans le mode en vigueur.</p>
+</aside>
+<p>Faire la commande : </p>
+<pre>&gt;e?</pre>
+<ol type="1" start="8">
+<li>Quelles sont les commandes qui commencent par la lettre ‘e&#39; dans le mode utilisateur ?</li>
+</ol>
+<ol type="1" start="9">
+<li>En déduire la cause du message d&#39;erreur précédent ? </li>
+</ol>
+<aside class="special"><p><strong>💡 Commandes abrégés</strong></p>
+<p>Il est possible d&#39;abréger les commandes  jusqu&#39;au nombre minimal de caractères formant un ensemble de caractères unique. Par exemple, vous pouvez abréger la commande <code>enable</code> en entrant <code>en</code> parce que <code>enable</code> est la seule commande qui commence par <code>en</code>. Par contre, l&#39;abréviation <code>e</code> ne fonctionne pas parce que plusieurs commandes débutent par <code>e</code>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Global Configuration Mode" duration="2">
+        <p>Faisons maintenant des changements dans la configuration du switch. Pour se faire rentrer en mode de configuration global : </p>
+<pre>#configuration terminal</pre>
+<ol type="1" start="10">
+<li>Quel mot dans l&#39;invite de commande indique que désormais vous êtes en mode de configuration global ?</li>
+</ol>
+<ol type="1" start="11">
+<li>Quel est le raccourci de la commande <code>configure terminal</code> ?</li>
+</ol>
+<aside class="warning"><p><strong>Conseil</strong></p>
+<p>Je vous conseille vivement de ne pas utiliser de raccourci pour le moment. En effet afin de retenir efficacement les commandes le cerveau aura plus de facilité à retenir une commande explicite comme par ex <code>enable</code> plutôt qu&#39;une commande qui a peut de sens pour lui (ex <code>en</code>).</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Commande enable password" duration="5">
+        <p>Maintenant nous voulons limiter l&#39;accès aux configurations de l&#39;appareil. Cela permettra d&#39;éviter que n&#39;importe qui puisse toucher à notre switch ne puisse voir sa configuration..</p>
+<p>Nous pouvons protéger le mode d&#39;exécution privilégié par un mot de passe. Ainsi si un utilisateur entre la commande <code>enable</code> il devra alors fournir un mdp (mot de passe).</p>
+<p>Taper les commandes suivantes et remarquer les différences de sortie : </p>
+<pre>Switch(config)#enable password?</pre>
+<pre>Switch(config)#enable password ?</pre>
+<p>Si vous utilisez le ? sans espace alors la CLI vous propose les commandes commençant par les caractères <code>password</code>. Si vous faites un espace puis un ? alors la CLI vous propose les arguments possibles avec cette commande.</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\ba05bd31c051f50b.png"></p>
+<p>Nous allons utiliser le deuxième argument. Vous remarquerez qu&#39;il est écrit en MAJUSCULE. Cela signifie que vous n&#39;avez pas besoin de taper <code>LINE</code> mais plutôt vous tapez une ligne qui sera considérée comme le mdp.</p>
+<p>Choisissez le mdp : <code>CCNA</code> puis taper le symbole <code>?</code> pour vérifier si d&#39;autres arguments sont disponibles.</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\aa4e27e8b8353b50.png"></p>
+<p>Le <code><cr></code> signifie qu&#39;il n&#39;y a pas d&#39;autres arguments disponibles. Appuyer sur <code>ENTER</code></p>
+<aside class="special"><p><strong>❤ Quelle est la structure d&#39;une ligne de commande ? </strong></p>
+<p class="image-container"><img style="width: 703.00px" src="img\\ab3e6e56221c47c5.png"></p>
+</aside>
+<h2 is-upgraded>Test du password</h2>
+<p>Retourner au mode utilisateur</p>
+<p>Essayer d&#39;accéder au mode d&#39;exécution privilégié</p>
+<p>PS : Si votre mdp ne fonctionne pas, peut être que vous avez saisi par mégarde un espace à la suite de ce dernier. Donc essayer de faire <code>mdp+espace</code> puis <code>ENTER</code>.</p>
+<p class="image-container"><img style="width: 424.00px" src="img\\867abaa212de1c32.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Commande running-config / startup-config" duration="10">
+        <p>Sur un périphérique Cisco il y a deux fichiers de configuration.</p>
+<h2 is-upgraded>Le fichier running-config</h2>
+<aside class="special"><p>❤<strong> Que contient le fichier running-config ? Dans quelle mémoire est-il stocké ? </strong></p>
+<p>Le fichier running-config contient la configuration active de l&#39;appareil. Il est stocké dans la mémoire vive (RAM).</p>
+</aside>
+<p>A chaque fois que vous faites des modifications de la configuration vous modifiez ce fichier.</p>
+<h2 is-upgraded>Le fichier startup-config</h2>
+<aside class="special"><p>❤<strong> Que contient le fichier startup-config ? Dans quelle mémoire est-il stocké ?  </strong></p>
+<p>Le fichier startup-config contient la configuration qui sera chargée lors du démarrage de l&#39;appareil. Il est stocké dans la mémoire vive non volatile (NVRAM).</p>
+</aside>
+<p>Ainsi le fichier running-config  est temporairement actif lorsque le périphérique Cisco fonctionne (sous tension). Cependant, en cas de panne de courant ou de redémarrage de l&#39;appareil, toutes les modifications de la configuration que vous n&#39;avez pas enregistrées seront perdues.</p>
+<h2 is-upgraded>La commande show running-config</h2>
+<p>Pour voir la configuration active, taper la commande : </p>
+<p class="image-container"><img style="width: 718.11px" src="img\\d57b7ad9cb6c9834.png"></p>
+<p>Naviguer dans ce fichier jusqu&#39;à arriver à la ligne concernant votre mdp : </p>
+<p class="image-container"><img style="width: 718.11px" src="img\\ef90a00b11a56246.png"></p>
+<h2 is-upgraded>La commande show startup-config</h2>
+<p>Pour voir le fichier <code>startup-config</code>, taper la commande suivante : </p>
+<p class="image-container"><img style="width: 718.11px" src="img\\e64ad63470f213a9.png"></p>
+<p>Comme vous pouvez le lire pour l&#39;instant, ce fichier n&#39;existe pas.</p>
+<p>Ainsi pour le moment lorsque vous démarrez l&#39;appareil, ce dernier charge en mémoire le fichier de configuration par défaut car il ne trouve pas le <code>startup-config</code>.</p>
+<h2 is-upgraded>Sauvegarder une configuration</h2>
+<p>Pour sauvegarder la configuration actuelle, nous allons simplement la copier dans le fichier <code>startup-config</code>. Ainsi la prochaine fois que l&#39;appareil démarrera, il chargera la configuration que nous avons sauvegardée.</p>
+<pre>Switch#copy running-config startup-config</pre>
+<ol type="1" start="12">
+<li>Maintenant afficher le fichier de <code>startup-config.</code> Quelle commande avez-vous utilisée ?</li>
+</ol>
+<p>Supposons que vous faites une modification de la configuration et que cela ne vous convient pas. Alors vous pouvez revenir à la configuration initial en redémarrant l&#39;appareil : </p>
+<pre>Switch#reload</pre>
+<p>Taper la commande précédente.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Améliorons la sécurité" duration="5">
+        <h2 is-upgraded>La commande service password-encryption</h2>
+<p>Comme vous avez pu le constater, votre mdp est affiché en clair dans le fichier de configuration. Cela représente un risque de sécurité. Nous allons donc améliorer notre niveau de sécurité.</p>
+<p>Taper la commande : </p>
+<pre>Switch(config)#service password-encryption</pre>
+<ol type="1" start="13">
+<li>Quel est le nouveau mdp affiché dans le fichier de configuration ?</li>
+</ol>
+<p>Le numéro 7 situé avant le mdp signifie qu&#39;il a été encrypté en utilisant un algorithme Cisco.</p>
+<p>Bien que notre mdp ne soit pas lisible en clair dans notre fichier de config, il reste néanmoins peu sécurisé. Aller sur le site suivant et entrer le mdp soit-disant encrypté : </p>
+<p><a href="https://www.firewall.cx/cisco-technical-knowledgebase/cisco-routers/358-cisco-type7-password-crack.html" target="_blank">CISCO TYPE 7 PASSWORD CRACKER TOOL</a></p>
+<p class="image-container"><img style="width: 676.00px" src="img\\d84a2dcb68f94f9a.png"></p>
+<h2 is-upgraded>La commande enable secret</h2>
+<p>La bonne nouvelle c&#39;est qu&#39;il existe une autre méthode permettant d&#39;utiliser une méthode d&#39;encryption plus robuste.</p>
+<p>Au lieu de la commande enable password vous pouvez utiliser la commande : </p>
+<pre>Switch(config)#enable secret Cisco</pre>
+<p>Le nouveau mdp est désormais :  Cisco</p>
+<p>Afficher le fichier de configuration</p>
+<p class="image-container"><img style="width: 718.11px" src="img\\44e8cfd10550e240.png"></p>
+<p>Remarquer le nombre <code>5</code> après le mot <code>secret</code>. Celà indique que le mdp a été encrypté en utilisant un algorithme d&#39;encryption de type MD5, qui est bien plus sécurisé que l&#39;autre. De plus, remarquer que la config <code>enable password</code> est toujours en place. Cependant elle n&#39;est plus utilisée étant donné que la commande <code>enable secret</code> a été configurée.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bilan" duration="15">
+        <ol type="1" start="14">
+<li>Pour chaque invites de commandes ci-dessous, indiqué à quel mode il correspond : </li>
+</ol>
+<p class="image-container"><img style="width: 718.11px" src="img\\3b03221c45d2fc6e.png"></p>
+<p>Donner une brève description de chaque commandes ci-dessous : </p>
+<ol type="1" start="15">
+<li>  </li>
+</ol>
+<pre>Switch&gt;enable</pre>
+<ol type="1" start="16">
+<li>  </li>
+</ol>
+<pre>Switch&gt;configure terminal</pre>
+<ol type="1" start="17">
+<li>  </li>
+</ol>
+<pre>Switch(config)#enable password {password}</pre>
+<ol type="1" start="18">
+<li>  </li>
+</ol>
+<pre>Switch(config)#service password-encryption</pre>
+<ol type="1" start="19">
+<li>  </li>
+</ol>
+<pre>Switch&gt;enable secret {password}</pre>
+<ol type="1" start="20">
+<li>  </li>
+</ol>
+<pre>Switch(config)#show running-config</pre>
+<ol type="1" start="21">
+<li>  </li>
+</ol>
+<pre>Switch(config)#show startup-config</pre>
+<ol type="1" start="22">
+<li>  </li>
+</ol>
+<pre>Switch(config)#copy running-config startup-config</pre>
+<ol type="1" start="23">
+<li>Quel type de cable est utilisé pour se connecter à un switch via le port console ?</li>
+<li>Vous tapez <code>enable</code> dans la CLI, puis vous entrez le mdp &#34;Ccna&#34;. Ce mdp n&#39;est pas accepté. Quel pourrait-être le problème ?</li>
+<li>Quel est la méthode la plus sûre pour protéger l&#39;accès au mode d&#39;exécution privilégié ?</li>
+<li>Si les commandes <code>enable password</code> et <code>enable secret</code> sont configurées, que va-t&#39;il se passer lorsque vous taperez <code>enable</code> ?</li>
+<li>Vous entrez le raccourci de  commande <code>conf t</code>. Quelle est la version complète de cette commande ?</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
